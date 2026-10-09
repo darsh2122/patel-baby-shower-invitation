@@ -1,0 +1,6 @@
+import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+export const runtime="nodejs";
+function csvCell(v:unknown){const s=String(v??"");return `"${s.replace(/"/g,'""')}"`}
+export async function GET(){const auth=await createClient();const {data:{user}}=await auth.auth.getUser();if(!user||!process.env.ADMIN_EMAIL||user.email?.toLowerCase()!==process.env.ADMIN_EMAIL.trim().toLowerCase())return NextResponse.json({error:"Unauthorized"},{status:401});const db=createAdminClient();const {data,error}=await db.from("household_rsvps").select("household_name,contact_name,email,attending,guest_count,dietary_notes,message,created_at").order("created_at",{ascending:true});if(error)return NextResponse.json({error:"Export unavailable"},{status:500});const headers=["Household","Contact","Email","Attending","Guest count","Dietary notes","Message","Received at"];const rows=(data||[]).map(r=>[r.household_name,r.contact_name,r.email,r.attending?"Yes":"No",r.guest_count,r.dietary_notes,r.message,r.created_at]);const csv=[headers,...rows].map(row=>row.map(csvCell).join(",")).join("\r\n");return new NextResponse(csv,{headers:{"content-type":"text/csv; charset=utf-8","content-disposition":"attachment; filename=patel-baby-shower-rsvps.csv","cache-control":"no-store"}})}

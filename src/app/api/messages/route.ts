@@ -1,0 +1,6 @@
+import { NextRequest, NextResponse } from "next/server";
+import { messageSchema } from "@/lib/validation";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { createHash } from "node:crypto";
+export const runtime="nodejs";
+export async function POST(req:NextRequest){try{const parsed=messageSchema.safeParse(await req.json());if(!parsed.success)return NextResponse.json({error:"Please enter a name and a message under 500 characters."},{status:400});const ip=req.headers.get("x-forwarded-for")?.split(",")[0]?.trim()||"unknown";const fingerprint=createHash("sha256").update(ip).digest("hex");const db=createAdminClient();const {data:allowed,error:rateError}=await db.rpc("consume_public_submission",{p_scope:"message",p_fingerprint:fingerprint,p_limit:5,p_window_seconds:3600});if(!rateError&&allowed===false)return NextResponse.json({error:"Too many messages. Please try again later."},{status:429});const {error}=await db.from("guest_messages").insert({name:parsed.data.name,message:parsed.data.message,approved:false});if(error){console.error("Guest message insert failed",error.code);return NextResponse.json({error:"Could not save your note right now."},{status:500});}return NextResponse.json({ok:true},{status:201});}catch{return NextResponse.json({error:"Could not save your note right now."},{status:500});}}
