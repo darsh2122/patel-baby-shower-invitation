@@ -1,100 +1,277 @@
+import { Baby, CalendarDays, CalendarPlus, Camera, ChevronDown, Clock, Flower2, Footprints, Heart as HeartIcon, MapPin, Navigation, ExternalLink, Shirt, Sparkles, PartyPopper } from "lucide-react";
 import Countdown from "@/components/countdown";
 import RSVPForm from "@/components/rsvp-form";
 import MessageForm from "@/components/message-form";
-import { calendarUrl, event } from "@/lib/event";
+import Reveal from "@/components/reveal";
+import Petals from "@/components/petals";
+import Nav from "@/components/nav";
+import EnvelopeIntro from "@/components/envelope-intro";
+import { Branch, Diya, Divider, Elephant, Heart, Landscape, Lotus } from "@/components/decor";
+import { calendarUrl, event, photos } from "@/lib/event";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
-async function getApprovedMessages() {
+type GuestMessage = { id: string; name: string; message: string; created_at: string };
+
+async function getApprovedMessages(): Promise<GuestMessage[]> {
   try {
     const db = createAdminClient();
-    const { data } = await db.from("guest_messages").select("id,name,message,created_at").eq("approved", true).order("created_at", { ascending: false }).limit(6);
-    return data || [];
+    const { data } = await db
+      .from("guest_messages")
+      .select("id,name,message,created_at")
+      .eq("approved", true)
+      .order("created_at", { ascending: false })
+      .limit(12);
+    return (data as GuestMessage[]) || [];
   } catch {
     return [];
   }
 }
 
-function LotusMark({ className = "" }: { className?: string }) {
-  return <svg className={className} viewBox="0 0 100 80" aria-hidden="true" fill="none">
-    <path d="M50 68C27 58 17 40 20 18c17 8 27 24 30 50Z" fill="#d6e2bf" stroke="#7c8d63" strokeWidth="1.4"/>
-    <path d="M50 68C73 58 83 40 80 18 63 26 53 42 50 68Z" fill="#f2cbb9" stroke="#b77c73" strokeWidth="1.4"/>
-    <path d="M50 68C34 47 35 25 50 5c15 20 16 42 0 63Z" fill="#f9e6d7" stroke="#b77c73" strokeWidth="1.4"/>
-    <path d="M18 69Q50 78 82 69" stroke="#b78d4d" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>;
+const tileIcons = {
+  heart: HeartIcon,
+  baby: Baby,
+  shoes: Footprints,
+  camera: Camera,
+  flower: Flower2,
+  sparkles: Sparkles,
+} as const;
+
+/** The four floral corners on every card. */
+function Corners() {
+  return (
+    <>
+      <Branch className="corner corner-tl" />
+      <Branch className="corner corner-tr" />
+      <Branch className="corner corner-bl" />
+      <Branch className="corner corner-br" />
+    </>
+  );
+}
+
+function SectionTitle({ children, sub }: { children: React.ReactNode; sub?: React.ReactNode }) {
+  return (
+    <header className="sec-title">
+      <Lotus className="sec-lotus" />
+      <h2>{children}</h2>
+      {sub && <p className="sec-sub">{sub}</p>}
+    </header>
+  );
 }
 
 export default async function Home() {
   const messages = await getApprovedMessages();
-  return <main className="invitation-site">
-    <nav className="site-nav" aria-label="Main navigation">
-      <a className="nav-brand" href="#home"><span>✽</span> Priyanka & Darshit</a>
-      <div className="nav-links"><a href="#details">The Celebration</a><a href="#gallery">Little Details</a><a href="#wishes">Guestbook</a></div>
-      <a className="nav-rsvp" href="#rsvp">RSVP <span>↗</span></a>
-    </nav>
 
-    <section className="hero invitation-hero" id="home">
-      <div className="hero-glow hero-glow-left" aria-hidden="true" />
-      <div className="hero-glow hero-glow-right" aria-hidden="true" />
-      <div className="hero-flower flower-left" aria-hidden="true">✿</div>
-      <div className="hero-flower flower-right" aria-hidden="true">❀</div>
-      <div className="hero-intro"><span className="tiny-rule" /> A little celebration, a lifetime of love <span className="tiny-rule" /></div>
-      <div className="invitation-card">
-        <div className="card-shadow" aria-hidden="true" />
-        <div className="card-inner">
-          <div className="card-corner corner-tl">❧</div><div className="card-corner corner-tr">❧</div>
-          <div className="card-corner corner-bl">❧</div><div className="card-corner corner-br">❧</div>
-          <div className="card-topline"><span>WITH LOVE & BLESSINGS</span><span className="topline-dot">✦</span><span>PLEASE JOIN US</span></div>
-          <div className="ganesha-medallion" aria-label="Decorative elephant motif"><span>ॐ</span><small>शुभ</small></div>
-          <p className="script-kicker">A new little love is on the way</p>
-          <h1 className="invitation-title">Baby <em>Shower</em></h1>
-          <div className="title-ornament"><span /> <LotusMark className="lotus-mark" /> <span /></div>
-          <p className="invitation-copy">Please join us as we celebrate the sweetest little blessing and shower the parents-to-be with love, laughter, and good wishes.</p>
-          <div className="parents-names"><span>Priyanka</span><i>&</i><span>Darshit</span></div>
-          <div className="card-divider"><span>✦</span></div>
-          <div className="date-ribbon">
-            <div><small>THE DAY</small><strong>SUNDAY</strong><b>13</b><strong>DECEMBER 2026</strong></div>
-            <div className="date-separator" />
-            <div><small>THE TIME</small><strong>9:00 AM</strong><span>to</span><strong>1:00 PM</strong><small>EASTERN</small></div>
+  return (
+    <main className="invite">
+      <EnvelopeIntro />
+      <Petals />
+      <Nav brand="P & D" />
+
+      {/* 2. WELCOME */}
+      <section id="welcome" className="screen hero">
+        <div className="sheet sheet-arch hero-sheet">
+          <Corners />
+          <div className="sheet-body">
+            <div className="medallion pop" style={{ "--i": 0 } as React.CSSProperties}><span>ॐ</span></div>
+            <p className="serif-lead pop" style={{ "--i": 1 } as React.CSSProperties}>With love and joy,<br />we invite you to our</p>
+            <h1 className="script script-xl shimmer pop" style={{ "--i": 2 } as React.CSSProperties}>Baby Shower</h1>
+            <p className="serif-body pop" style={{ "--i": 3 } as React.CSSProperties}>As we celebrate the upcoming arrival<br />of our little one</p>
+            <p className="hosted pop" style={{ "--i": 4 } as React.CSSProperties}>Hosted by</p>
+            <p className="hosts pop" style={{ "--i": 5 } as React.CSSProperties}>{event.hostsFull}</p>
+            <Heart className="beat pop" />
+            <p className="serif-body small pop" style={{ "--i": 6 } as React.CSSProperties}>A new chapter, a bigger love,<br />our greatest blessing is on the way!</p>
+            <div className="hero-when pop" style={{ "--i": 7 } as React.CSSProperties}>
+              <span><CalendarDays size={14} /> {event.dateLabel}</span>
+              <span><Clock size={14} /> {event.timeLabel}</span>
+            </div>
+            <div className="hero-actions pop" style={{ "--i": 8 } as React.CSSProperties}>
+              <a className="btn btn-primary" href="#rsvp">RSVP now</a>
+              <a className="btn btn-ghost" href="#details">See details</a>
+            </div>
+            <Lotus className="hero-lotus pop float" />
           </div>
-          <p className="card-venue"><span>⌖</span> MARYHILL HERITAGE PARK COMMUNITY CENTRE<br /><small>58 St Charles St E · Woolwich, Ontario</small></p>
-          <div className="card-actions">
-            <a className="pill" href="#rsvp">Kindly RSVP <span>♡</span></a>
-            <a className="text-link" href={calendarUrl()} target="_blank" rel="noreferrer">Add to calendar ↗</a>
+        </div>
+        <a className="scroll-cue" href="#countdown" aria-label="Scroll down"><ChevronDown size={22} /></a>
+      </section>
+
+      {/* 3. COUNTDOWN */}
+      <section id="countdown" className="screen countdown-screen">
+        <Reveal className="sheet sheet-soft">
+          <Corners />
+          <div className="sheet-body">
+            <p className="serif-lead">The celebration begins in</p>
+            <Countdown />
+            <Divider />
+            <div className="scene">
+              <Landscape className="scene-bg" />
+              <Elephant className="scene-elephant sway" />
+              <Lotus className="scene-lotus scene-lotus-l float" />
+              <Lotus className="scene-lotus scene-lotus-r float" />
+            </div>
+            <h2 className="script script-lg">Baby Shower</h2>
+            <p className="when-strong">{event.dateLabel}</p>
+            <p className="when-light">{event.timeLabel}</p>
           </div>
-          <div className="card-bottom-note">Your presence is the most precious present</div>
-        </div>
-      </div>
-      <div className="hero-bottom-note"><span>✧</span> A day of joy, blessings & beautiful beginnings <span>✧</span></div>
-    </section>
+        </Reveal>
+      </section>
 
-    <section className="countdown section countdown-section">
-      <div className="section-inner countdown-inner"><p className="section-kicker">COUNTING OUR BLESSINGS</p><h2 className="section-heading">The day is getting closer</h2><p className="section-lead">We can hardly wait to celebrate with you.</p><Countdown /></div>
-    </section>
+      {/* 4. OUR STORY */}
+      <section id="story" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle>Our Story</SectionTitle>
+            <p className="serif-body">From the day we found out, our hearts have been filled with more love, more dreams and more excitement.</p>
+            <p className="serif-body">This little one has already brought so much joy into our lives, and we can&rsquo;t wait to share this special journey with you.</p>
+            <Reveal effect="zoom" delay={150} className="photo-frame">
+              {photos.story ? (
+                <img src={photos.story} alt="Our story" loading="lazy" />
+              ) : (
+                <div className="photo-ph" role="img" aria-label="Photo coming soon">
+                  <HeartIcon size={54} strokeWidth={1.2} className="beat" />
+                  <small>Our photo goes here</small>
+                </div>
+              )}
+            </Reveal>
+          </div>
+        </Reveal>
+      </section>
 
-    <section id="details" className="section celebration-section">
-      <div className="section-inner">
-        <div className="section-heading-wrap"><LotusMark className="section-lotus" /><p className="section-kicker">SAVE A LITTLE SPACE IN YOUR HEART</p><h2 className="section-heading">A beautiful day awaits</h2><p className="section-lead">Come for the blessings, stay for the laughter, and help us make memories we’ll cherish forever.</p></div>
-        <div className="detail-grid">
-          <article className="detail-card detail-card-peach"><div className="detail-icon" aria-hidden="true">☼</div><p className="detail-overline">MARK YOUR CALENDAR</p><h3>When we gather</h3><p><strong>Sunday, December 13, 2026</strong><br />9:00 AM – 1:00 PM Eastern</p><a className="detail-link" href="/api/calendar">Download calendar invitation <span>↗</span></a></article>
-          <article className="detail-card detail-card-pista"><div className="detail-icon" aria-hidden="true">⌖</div><p className="detail-overline">WE’LL SAVE YOU A SEAT</p><h3>Where to find us</h3><p><strong>{event.venue}</strong><br />{event.address}</p><a className="detail-link" href={event.mapUrl} target="_blank" rel="noreferrer">Get directions <span>↗</span></a></article>
-        </div>
-      </div>
-    </section>
+      {/* 5. EVENT DETAILS */}
+      <section id="details" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle>Baby Shower Details</SectionTitle>
+            <ul className="detail-list">
+              <Reveal as="li" effect="left" delay={0}>
+                <span className="d-ico"><CalendarDays size={22} strokeWidth={1.5} /></span>
+                <div><h3>Date</h3><p>{event.dateLabel}</p></div>
+              </Reveal>
+              <Reveal as="li" effect="left" delay={90}>
+                <span className="d-ico"><Clock size={22} strokeWidth={1.5} /></span>
+                <div><h3>Time</h3><p>{event.timeLabel}</p></div>
+              </Reveal>
+              <Reveal as="li" effect="left" delay={180}>
+                <span className="d-ico"><MapPin size={22} strokeWidth={1.5} /></span>
+                <div><h3>Venue</h3><p>{event.venue}<br />{event.address}</p></div>
+              </Reveal>
+              <Reveal as="li" effect="left" delay={270}>
+                <span className="d-ico"><Shirt size={22} strokeWidth={1.5} /></span>
+                <div><h3>Dress Code</h3><p>{event.dressCode}<br /><small>({event.dressNote})</small></p></div>
+              </Reveal>
+              <Reveal as="li" effect="left" delay={360}>
+                <span className="d-ico"><PartyPopper size={22} strokeWidth={1.5} /></span>
+                <div><h3>Fun &amp; Games</h3><p>{event.funLine}</p></div>
+              </Reveal>
+            </ul>
+            <a className="btn btn-ghost" href="/api/calendar"><CalendarPlus size={16} /> Add to Calendar</a>
+            <a className="mini-link" href={calendarUrl()} target="_blank" rel="noreferrer">or open in Google Calendar <ExternalLink size={12} /></a>
+            <Diya className="sheet-diya" />
+          </div>
+        </Reveal>
+      </section>
 
-    <section className="games-banner"><div className="games-flower" aria-hidden="true">✿</div><p className="section-kicker">A LITTLE FUN IS IN STORE</p><h2>Come ready to play!</h2><p>Get ready to join in the games — we’ll have smiles, laughter, and a little friendly competition for everyone.</p><span className="games-sparkles" aria-hidden="true">✦　❀　✦</span></section>
+      {/* 6. LOCATION */}
+      <section id="location" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle>Location</SectionTitle>
+            <div className="map-frame">
+              <iframe title={`Map to ${event.venue}`} src={event.mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+            </div>
+            <p className="venue-name">{event.venue}</p>
+            <p className="serif-body small">{event.address}</p>
+            <div className="stack">
+              <a className="btn btn-primary btn-block" href={event.mapUrl} target="_blank" rel="noreferrer"><Navigation size={16} /> Get Directions</a>
+              <a className="btn btn-ghost btn-block" href={event.mapUrl} target="_blank" rel="noreferrer">View on Google Maps <ExternalLink size={14} /></a>
+            </div>
+          </div>
+        </Reveal>
+      </section>
 
-    <section id="gallery" className="section gallery-section"><div className="section-inner"><p className="section-kicker">LITTLE TOUCHES, LOTS OF LOVE</p><h2 className="section-heading">A celebration in bloom</h2><p className="section-lead">Inspired by the traditions, blessings, and beautiful beginnings that bring us together.</p><div className="gallery-grid">
-      <div className="gallery-tile gallery-lotus"><div className="gallery-art">🪷</div><span className="gallery-caption">LOVE IN BLOOM</span><strong>New beginnings</strong><small>A little love grows into a lifetime.</small></div>
-      <div className="gallery-tile gallery-diya"><div className="gallery-art">🪔</div><span className="gallery-caption">LIGHT & BLESSINGS</span><strong>Wishes from the heart</strong><small>May the little one be surrounded by joy.</small></div>
-      <div className="gallery-tile gallery-flower"><div className="gallery-art">🌼</div><span className="gallery-caption">FAMILY & JOY</span><strong>Together is beautiful</strong><small>Our favourite people, one special day.</small></div>
-    </div><p className="gallery-note">A little preview of the celebration’s colours and traditions. Family photos can be added here before the big day.</p></div></section>
+      {/* 7. RSVP */}
+      <section id="rsvp" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle sub={<>Kindly reply by <strong>{event.rsvpDeadlineLabel}</strong></>}>RSVP</SectionTitle>
+            <RSVPForm />
+          </div>
+        </Reveal>
+      </section>
 
-    <section id="rsvp" className="section rsvp-section"><div className="section-inner"><div className="rsvp-heading"><LotusMark className="section-lotus" /><p className="section-kicker">KINDLY REPLY BY NOVEMBER 22, 2026</p><h2 className="section-heading">Will you celebrate with us?</h2><p className="section-lead">Please send one RSVP per household so we can save a place for everyone.</p></div><RSVPForm /></div></section>
+      {/* 8. GALLERY */}
+      <section id="gallery" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle>Our Journey So Far</SectionTitle>
+            <div className="gallery">
+              {photos.gallery.map((p, i) => {
+                const Icon = tileIcons[p.icon];
+                return (
+                  <Reveal key={i} effect="zoom" delay={(i % 2) * 90 + Math.floor(i / 2) * 60} className={`g-tile g-${i % 6}`}>
+                    {p.src ? (
+                      <img src={p.src} alt={p.alt} loading="lazy" />
+                    ) : (
+                      <div className="g-ph" role="img" aria-label={p.alt}>
+                        <Icon size={34} strokeWidth={1.2} />
+                        <small>{p.alt}</small>
+                      </div>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
+      </section>
 
-    <section id="wishes" className="section wishes-section"><div className="section-inner"><p className="section-kicker">LEAVE A LITTLE LOVE</p><h2 className="section-heading">Wishes for our little one</h2><p className="section-lead">Share a blessing, a kind thought, or a note for the parents-to-be. Messages appear after the hosts approve them.</p>{messages.length > 0 ? <div className="messages-grid">{messages.map((m: any) => <article className="message-card" key={m.id}><div className="message-stars" aria-hidden="true">✦　✦　✦</div><blockquote>“{m.message}”</blockquote><strong>— {m.name}</strong></article>)}</div> : <div className="empty wishes-empty"><span>❧</span><p>Your wishes will make this space bloom.</p><small>Be the first to leave a little note of love.</small></div>}<MessageForm /></div></section>
+      {/* 9. GUEST MESSAGES */}
+      <section id="wishes" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle sub={<>Leave a note, wish or blessing<br />for our baby!</>}>Messages for Our Little One</SectionTitle>
+            <MessageForm />
+            {messages.length > 0 && (
+              <div className="wall">
+                <h3 className="wall-title">Wishes so far</h3>
+                {messages.map((m, i) => (
+                  <Reveal as="article" key={m.id} effect={i % 2 ? "right" : "left"} delay={i * 40} className="note">
+                    <blockquote>&ldquo;{m.message}&rdquo;</blockquote>
+                    <cite>{m.name}</cite>
+                  </Reveal>
+                ))}
+              </div>
+            )}
+          </div>
+        </Reveal>
+      </section>
 
-    <footer className="footer"><LotusMark className="footer-lotus" /><p className="footer-script">With love,</p><strong>Priyanka & Darshit</strong><p>Thank you for being part of our special day.</p><small>DECEMBER 13, 2026 <span>✦</span> MADE WITH LOVE</small></footer>
-  </main>;
+      {/* 12. THANK YOU */}
+      <section id="thanks" className="screen thanks-screen">
+        <Reveal className="sheet sheet-thanks">
+          <Corners />
+          <div className="sheet-body">
+            <Lotus className="sec-lotus" />
+            <h2 className="script script-xl">Thank You!</h2>
+            <p className="serif-body">We&rsquo;re so grateful for your love, support and for being a part of this special journey.</p>
+            <Heart className="beat" />
+            <p className="serif-body small">With love,</p>
+            <p className="hosts">{event.hostsShort}</p>
+            <Elephant className="thanks-elephant sway" />
+          </div>
+        </Reveal>
+      </section>
+
+      <footer className="foot">
+        <small>{event.dateLabel} · Made with love</small>
+      </footer>
+    </main>
+  );
 }

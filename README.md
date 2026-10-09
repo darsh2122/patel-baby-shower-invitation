@@ -11,7 +11,7 @@ A mobile-friendly Next.js invitation for Priyanka Patel & Darshit Patel's baby s
 - Supabase migration with RLS enabled and no direct guest table access
 - Unit tests for form validation
 
-The gallery is currently an elegant, privacy-safe placeholder with decorative motifs. Add chosen event photos later using a deliberately public gallery bucket or optimized local assets after checking image permissions. No “Our Story” or “Our Journey So Far” section is included.
+The page follows a 12-screen design: tap-to-open envelope, welcome, countdown, Our Story, details, map, RSVP, gallery, guest messages, thank-you, plus an admin dashboard. Story and gallery photos are illustrated placeholders until you add real ones: put image files in `public/photos/` and list their paths in `src/lib/event.ts` (`photos`). Only add photos you have permission to publish.
 
 ## Requirements
 - Node.js 20.9+ (Node 22 LTS recommended)
@@ -72,5 +72,6 @@ supabase/migrations/                SQL schema, rate limiter, privileges
 
 ## Notes
 - Date/time are set to Eastern Standard Time (UTC−5) for December 13, 2026.
-- The page has no “Our Story” or “Our Journey So Far” section.
+- Optional: set `INVITED_HOUSEHOLDS` (a number) to show Invited and Awaiting-reply cards on the admin dashboard.
+- Guest messages are approved or deleted from the admin dashboard (no need to use the Supabase table editor).
 - Hosting, Supabase, and email-provider quotas/policies can change. Verify current plan terms before public launch; free tiers are not a guarantee of unlimited capacity.
