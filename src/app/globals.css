@@ -116,7 +116,7 @@ button { cursor: pointer; }
 .sec-sub strong { color: var(--brown); font-weight: 600; }
 
 .medallion {
-  width: 88px; height: 88px; margin: 0 auto 14px; border-radius: 50%;
+  width: 120px; height: 120px; margin: 0 auto 14px; border-radius: 50%;
   display: grid; place-items: center; color: var(--gold); font-size: 2rem; line-height: 1;
   border: 1px solid var(--gold-soft);
   background: radial-gradient(circle, #fff7ea, #fde6cc);
