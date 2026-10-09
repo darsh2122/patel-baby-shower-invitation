@@ -74,7 +74,7 @@ export default async function Home() {
         <div className="sheet sheet-arch hero-sheet">
           <Corners />
           <div className="sheet-body">
-            <div className="medallion pop" style={{ "--i": 0 } as React.CSSProperties}><span>ॐ</span></div>
+            <div className="medallion pop" style={{ "--i": 0 } as React.CSSProperties}><img src="/baby-ganesha.svg" alt="Cute baby Ganesha" /></div>
             <p className="serif-lead pop" style={{ "--i": 1 } as React.CSSProperties}>With love and joy,<br />we invite you to our</p>
             <h1 className="script script-xl shimmer pop" style={{ "--i": 2 } as React.CSSProperties}>Baby Shower</h1>
             <p className="serif-body pop" style={{ "--i": 3 } as React.CSSProperties}>As we celebrate the upcoming arrival<br />of our little one</p>
