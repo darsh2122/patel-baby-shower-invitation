@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 /* Hand-drawn SVG decorations: all original artwork, no external image files needed. */
 
 type P = { className?: string };
@@ -86,49 +88,120 @@ export function Diya({ className = "" }: P) {
   );
 }
 
-export function Elephant({ className = "" }: P) {
+function Ear({ k }: { k: string }) {
   return (
-    <svg className={className} viewBox="0 0 250 200" aria-hidden="true" fill="none">
-      {/* ground shadow */}
-      <ellipse cx="128" cy="188" rx="86" ry="7" fill="#7d956633" />
-      {/* far legs */}
-      <rect x="82" y="128" width="24" height="56" rx="10" fill="#b8987c" />
-      <rect x="150" y="128" width="24" height="56" rx="10" fill="#b8987c" />
-      {/* body */}
-      <ellipse cx="136" cy="104" rx="78" ry="52" fill="#d2b196" />
-      {/* near legs */}
-      <rect x="62" y="130" width="28" height="56" rx="11" fill="#d2b196" />
-      <rect x="172" y="130" width="28" height="56" rx="11" fill="#d2b196" />
-      <rect x="62" y="172" width="28" height="9" rx="4" fill="#e9c27a" />
-      <rect x="172" y="172" width="28" height="9" rx="4" fill="#e9c27a" />
-      {/* tail */}
-      <path d="M212 96c12 6 14 20 8 34" stroke="#b8987c" strokeWidth="4" strokeLinecap="round" />
-      <circle cx="220" cy="132" r="4" fill="#8f6d50" />
-      {/* blanket */}
-      <path d="M92 58c26-14 74-14 104 4l6 56c-34 14-78 14-112 0l2-60Z" fill="#3f8f86" stroke="#e9c27a" strokeWidth="3" />
-      <path d="M100 70c24-8 64-8 92 4" stroke="#f2a65a" strokeWidth="5" strokeLinecap="round" />
-      <path d="M104 100c22 8 62 8 88 0" stroke="#f2a65a" strokeWidth="4" strokeLinecap="round" />
-      <g fill="#e9c27a">
-        <circle cx="122" cy="85" r="5" /><circle cx="146" cy="88" r="6" /><circle cx="170" cy="85" r="5" />
-        <path d="M100 116l4 10 4-10zM124 120l4 10 4-10zM148 122l4 10 4-10zM172 120l4 10 4-10z" />
+    <>
+      <path d="M104 80C74 44 14 56 8 112c-5 48 36 88 84 64 16-26 22-68 12-96Z" fill={`url(#SKIN${k})`} stroke="#8d7c70" strokeWidth="1" />
+      <path d="M98 92C76 66 32 76 28 116c-3 36 26 64 58 48 12-22 18-52 12-72Z" fill={`url(#EARIN${k})`} />
+      <path d="M92 102C72 102 52 114 40 130M92 122C74 126 58 138 51 152M91 142C79 150 68 158 63 166" stroke="#d98c82" strokeWidth="1.3" strokeLinecap="round" opacity=".55" fill="none" />
+      <path d="M22 76C40 58 70 58 92 76" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".22" fill="none" />
+    </>
+  );
+}
+
+function Eye({ x, k, flip = false }: { x: number; k: string; flip?: boolean }) {
+  const d = flip ? 1 : -1; // direction of the outer corner
+  return (
+    <g>
+      <ellipse cx={x} cy="103" rx="7.6" ry="9.2" fill="#35261f" />
+      <ellipse cx={x} cy="103" rx="7.6" ry="9.2" fill={`url(#EYESHINE${k})`} />
+      <circle cx={x - 2.4} cy="99" r="3" fill="#fff" />
+      <circle cx={x + 2.6} cy="107.6" r="1.4" fill="#fff" opacity=".85" />
+      <path d={`M${x - 9} 94q9 -8 18 0`} stroke="#4a382e" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+      <path d={`M${x + d * 8.5} 95l${d * 5} -3M${x + d * 6} 91.5l${d * 3.5} -5M${x + d * 3} 89.5l${d * 1.5} -5.5`} stroke="#4a382e" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      <ellipse className="be-lid" cx={x} cy="103" rx="8.8" ry="10.4" fill="#c7b7aa" />
+    </g>
+  );
+}
+
+/** A cute front-facing baby elephant with idle animations (breathing, ear flaps, trunk sway, blinking, floating hearts). */
+export function BabyElephant({ className = "", still = false }: { className?: string; still?: boolean }) {
+  const raw = useId();
+  const k = raw.replace(/[^a-zA-Z0-9]/g, "");
+  const u = (n: string) => `url(#${n}${k})`;
+  return (
+    <svg className={`be ${still ? "be-still" : ""} ${className}`} viewBox="0 0 300 280" aria-hidden="true" fill="none">
+      <defs>
+        <radialGradient id={`SKIN${k}`} cx="42%" cy="30%" r="85%">
+          <stop offset="0" stopColor="#e9dfd6" />
+          <stop offset=".55" stopColor="#cbbaad" />
+          <stop offset="1" stopColor="#9c8b7f" />
+        </radialGradient>
+        <linearGradient id={`BODY${k}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#d3c4b8" />
+          <stop offset="1" stopColor="#a39286" />
+        </linearGradient>
+        <radialGradient id={`EARIN${k}`} cx="60%" cy="45%" r="75%">
+          <stop offset="0" stopColor="#f6cfc6" />
+          <stop offset="1" stopColor="#e3a197" />
+        </radialGradient>
+        <linearGradient id={`TRUNK${k}`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#a39286" />
+          <stop offset=".45" stopColor="#d9cbc0" />
+          <stop offset="1" stopColor="#9e8d81" />
+        </linearGradient>
+        <radialGradient id={`BLUSH${k}`}>
+          <stop offset="0" stopColor="#f4a79c" stopOpacity=".75" />
+          <stop offset="1" stopColor="#f4a79c" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`EYESHINE${k}`} cx="40%" cy="35%" r="70%">
+          <stop offset="0" stopColor="#7a5a48" stopOpacity=".55" />
+          <stop offset="1" stopColor="#35261f" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="150" cy="265" rx="84" ry="9" fill="#5c6e48" opacity=".22" />
+
+      <g className="be-all">
+        {/* legs + body */}
+        <rect x="102" y="222" width="42" height="40" rx="18" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
+        <rect x="156" y="222" width="42" height="40" rx="18" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
+        <ellipse cx="150" cy="206" rx="68" ry="54" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
+        <ellipse cx="150" cy="222" rx="38" ry="26" fill="#fff" opacity=".12" />
+        <g fill="#f2e9df" stroke="#b5a69a" strokeWidth=".8">
+          <ellipse cx="113" cy="254" rx="4.6" ry="5.6" /><ellipse cx="123" cy="256" rx="4.6" ry="5.6" /><ellipse cx="133" cy="254" rx="4.6" ry="5.6" />
+          <ellipse cx="167" cy="254" rx="4.6" ry="5.6" /><ellipse cx="177" cy="256" rx="4.6" ry="5.6" /><ellipse cx="187" cy="254" rx="4.6" ry="5.6" />
+        </g>
+        <path d="M108 242q16 7 32 0M160 242q16 7 32 0" stroke="#7d6d62" strokeWidth="1.3" strokeLinecap="round" opacity=".35" />
+
+        {/* ears */}
+        <g className="be-ear-l"><Ear k={k} /></g>
+        <g className="be-ear-r"><g transform="translate(300 0) scale(-1 1)"><Ear k={k} /></g></g>
+
+        {/* head */}
+        <ellipse cx="150" cy="110" rx="60" ry="57" fill={u("SKIN")} stroke="#8d7c70" strokeWidth="1" />
+        <ellipse cx="136" cy="76" rx="30" ry="14" fill="#fff" opacity=".2" />
+        <path d="M126 80q24 -9 48 0M132 90q18 -6 36 0" stroke="#7d6d62" strokeWidth="1.3" strokeLinecap="round" opacity=".28" />
+        <path d="M146 54q-3 -9 -10 -12M150 53q0 -10 3 -15M154 54q4 -9 12 -10" stroke="#8a796d" strokeWidth="2.2" strokeLinecap="round" />
+        <ellipse cx="100" cy="130" rx="13" ry="8" fill={u("BLUSH")} />
+        <ellipse cx="200" cy="130" rx="13" ry="8" fill={u("BLUSH")} />
+
+        <Eye x={121} k={k} />
+        <Eye x={179} k={k} flip />
+
+        {/* trunk */}
+        <g className="be-trunk">
+          <path d="M134 112C130 146 128 176 137 200c5 13 23 16 28 2 3-9-4-15-10-11-4 2-6-1-5-7 3-20 10-44 16-72Z" fill={u("TRUNK")} stroke="#8d7c70" strokeWidth="1" />
+          <path d="M131 140q18 7 36 -2M130 158q17 7 32 -1M131 176q14 6 26 -1M135 192q11 6 20 0" stroke="#7d6d62" strokeWidth="1.4" strokeLinecap="round" opacity=".35" />
+          <path d="M143 122C140 150 139 176 145 196" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".2" />
+          <ellipse cx="157" cy="207" rx="4.2" ry="2.4" fill="#6e5d52" opacity=".5" />
+        </g>
+
+        {/* little blossom on the head */}
+        <g transform="translate(193 60) rotate(14)">
+          <path d="M-4 6C-18 4-24 14-26 22 -14 22-6 16-4 6Z" fill="#9bb27c" />
+          {[0, 72, 144, 216, 288].map((a) => (
+            <ellipse key={a} cx="0" cy="-8" rx="5.6" ry="8" transform={`rotate(${a})`} fill="#f8bba8" stroke="#eba08a" strokeWidth=".7" />
+          ))}
+          <circle r="4" fill="#e9b55c" />
+        </g>
       </g>
-      {/* ear */}
-      <path d="M76 52c-30-14-48 10-40 38 6 20 28 26 42 6 8-14 6-34-2-44Z" fill="#c4a287" stroke="#a98767" strokeWidth="1.2" />
-      <path d="M70 62c-16-6-26 8-22 24 4 12 14 14 22 4 4-8 4-20 0-28Z" fill="#efb8a6" />
-      {/* head */}
-      <circle cx="62" cy="92" r="40" fill="#d2b196" />
-      {/* head cloth */}
-      <path d="M34 66c8-22 40-30 62-12-6 10-14 16-24 20-14 4-28 0-38-8Z" fill="#f2a65a" stroke="#e9c27a" strokeWidth="2" />
-      <path d="M62 52l7 14h-14z" fill="#e9c27a" />
-      <circle cx="62" cy="68" r="3.4" fill="#d6563c" />
-      {/* trunk */}
-      <path d="M44 114c-14 14-20 36-10 52 6 10 20 8 22-4 2-10-6-14-12-12" stroke="#d2b196" strokeWidth="19" strokeLinecap="round" />
-      <path d="M38 126c-6 12-6 24 0 34" stroke="#b8987c" strokeWidth="2" strokeLinecap="round" opacity=".6" />
-      {/* tusks + eye */}
-      <path d="M78 122c8 6 16 6 24 0" stroke="#fff6e6" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="72" cy="94" r="3.6" fill="#4a3a30" />
-      <circle cx="73.2" cy="92.8" r="1.1" fill="#fff" />
-      <path d="M76 84c3-3 6-3 9 0" stroke="#4a3a30" strokeWidth="1.4" strokeLinecap="round" />
+
+      <g fill="#f2a3a0">
+        <path className="be-heart h1" d="M236 80c-6-6-10-2-6 3l6 7 6-7c4-5 0-9-6-3Z" />
+        <path className="be-heart h2" d="M262 112c-5-5-8-1-5 3l5 6 5-6c3-4 0-8-5-3Z" />
+        <path className="be-heart h3" d="M44 70c-5-5-8-1-5 3l5 6 5-6c3-4 0-8-5-3Z" />
+      </g>
     </svg>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Bow, Branch, Diya, Elephant } from "./decor";
+import { Bow, Branch, BabyElephant, Diya } from "./decor";
 
 type Stage = "idle" | "opening" | "leaving" | "gone";
 
@@ -56,7 +56,7 @@ export default function EnvelopeIntro() {
         <span className="env-ribbon-v" />
         <span className="env-ribbon-h" />
         <Bow className="env-bow" />
-        <span className="env-tag" aria-hidden="true"><Elephant className="env-tag-elephant" /></span>
+        <span className="env-tag" aria-hidden="true"><BabyElephant className="env-tag-elephant" still /></span>
       </button>
       <p className="intro-tap">Tap to open</p>
     </div>
