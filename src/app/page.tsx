@@ -117,28 +117,6 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      {/* 4. OUR STORY */}
-      <section id="story" className="screen">
-        <Reveal className="sheet sheet-arch">
-          <Corners />
-          <div className="sheet-body">
-            <SectionTitle>Our Story</SectionTitle>
-            <p className="serif-body">From the day we found out, our hearts have been filled with more love, more dreams and more excitement.</p>
-            <p className="serif-body">This little one has already brought so much joy into our lives, and we can&rsquo;t wait to share this special journey with you.</p>
-            <Reveal effect="zoom" delay={150} className="photo-frame">
-              {photos.story ? (
-                <img src={photos.story} alt="Our story" loading="lazy" />
-              ) : (
-                <div className="photo-ph" role="img" aria-label="Photo coming soon">
-                  <HeartIcon size={54} strokeWidth={1.2} className="beat" />
-                  <small>Our photo goes here</small>
-                </div>
-              )}
-            </Reveal>
-          </div>
-        </Reveal>
-      </section>
-
       {/* 5. EVENT DETAILS */}
       <section id="details" className="screen">
         <Reveal className="sheet sheet-arch">
@@ -200,33 +178,6 @@ export default async function Home() {
           <div className="sheet-body">
             <SectionTitle sub={<>Kindly reply by <strong>{event.rsvpDeadlineLabel}</strong></>}>RSVP</SectionTitle>
             <RSVPForm />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 8. GALLERY */}
-      <section id="gallery" className="screen">
-        <Reveal className="sheet sheet-arch">
-          <Corners />
-          <div className="sheet-body">
-            <SectionTitle>Our Journey So Far</SectionTitle>
-            <div className="gallery">
-              {photos.gallery.map((p, i) => {
-                const Icon = tileIcons[p.icon];
-                return (
-                  <Reveal key={i} effect="zoom" delay={(i % 2) * 90 + Math.floor(i / 2) * 60} className={`g-tile g-${i % 6}`}>
-                    {p.src ? (
-                      <img src={p.src} alt={p.alt} loading="lazy" />
-                    ) : (
-                      <div className="g-ph" role="img" aria-label={p.alt}>
-                        <Icon size={34} strokeWidth={1.2} />
-                        <small>{p.alt}</small>
-                      </div>
-                    )}
-                  </Reveal>
-                );
-              })}
-            </div>
           </div>
         </Reveal>
       </section>
