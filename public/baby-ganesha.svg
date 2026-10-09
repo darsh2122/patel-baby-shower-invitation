@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+<title id="title">Cute baby Ganesha illustration</title>
+<defs>
+ <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff4e7"/><stop offset="1" stop-color="#efcbb9"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0a9"/><stop offset="1" stop-color="#e6b64f"/></linearGradient>
+ <linearGradient id="pink" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd8d3"/><stop offset="1" stop-color="#edaaa8"/></linearGradient>
+</defs>
+<circle cx="80" cy="80" r="76" fill="#d8f0e9"/>
+<!-- peacock feather -->
+<path d="M102 39 Q126 18 119 5 Q116 23 99 25 Q93 31 102 39Z" fill="#9dbb9d" stroke="#8a8177" stroke-width="1.8"/>
+<ellipse cx="108" cy="25" rx="7" ry="10" transform="rotate(28 108 25)" fill="#b8dce0" stroke="#8a8177" stroke-width="1.5"/>
+<ellipse cx="108" cy="25" rx="3.6" ry="5.4" transform="rotate(28 108 25)" fill="#557e91"/>
+<!-- ears -->
+<path d="M57 54 C38 34 15 42 17 67 C19 88 39 96 57 79Z" fill="url(#pink)" stroke="#8d7b70" stroke-width="2.5"/>
+<path d="M103 54 C122 34 145 42 143 67 C141 88 121 96 103 79Z" fill="url(#pink)" stroke="#8d7b70" stroke-width="2.5"/>
+<path d="M51 59 Q31 47 28 67 M109 59 Q129 47 132 67" fill="none" stroke="#d88e8d" stroke-width="2" stroke-linecap="round"/>
+<!-- body and legs -->
+<ellipse cx="80" cy="111" rx="37" ry="28" fill="url(#skin)" stroke="#8d7b70" stroke-width="2.5"/>
+<ellipse cx="59" cy="131" rx="18" ry="10" fill="#c8b3ed" stroke="#8d7b70" stroke-width="2"/>
+<ellipse cx="101" cy="131" rx="18" ry="10" fill="#f6c8bf" stroke="#8d7b70" stroke-width="2"/>
+<path d="M48 130 Q62 140 74 134 M86 134 Q100 140 112 130" fill="none" stroke="#f8e3a1" stroke-width="5" stroke-linecap="round"/>
+<!-- raised hand -->
+<path d="M47 91 Q37 93 36 82 L34 69 Q34 64 38 65 Q42 65 43 75 L43 63 Q44 58 48 61 L50 74 L51 65 Q55 61 57 67 L57 82 Q56 91 47 91Z" fill="url(#skin)" stroke="#8d7b70" stroke-width="2"/>
+<path d="M43 79 L49 78 M50 78 L55 77" stroke="#d4a49a" stroke-width="1.4"/>
+<!-- head -->
+<ellipse cx="80" cy="68" rx="34" ry="36" fill="url(#skin)" stroke="#8d7b70" stroke-width="2.5"/>
+<!-- crown -->
+<path d="M49 42 Q47 25 62 22 L62 15 Q62 9 68 9 Q74 9 74 15 L74 20 Q80 10 86 20 L91 25 Q103 28 105 42Z" fill="url(#gold)" stroke="#8d7b70" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M72 38 Q64 30 72 23 Q80 15 87 27 Q91 34 80 41Z" fill="#c6e7f0" stroke="#8d7b70" stroke-width="1.8"/>
+<path d="M48 44 Q80 30 112 44 L107 50 Q80 39 53 50Z" fill="url(#gold)" stroke="#8d7b70" stroke-width="2"/>
+<!-- eyes and cheeks -->
+<ellipse cx="65" cy="66" rx="4.8" ry="5.5" fill="#655046"/>
+<ellipse cx="95" cy="66" rx="4.8" ry="5.5" fill="#655046"/>
+<path d="M59 57 Q65 53 70 57 M90 57 Q96 53 101 57" fill="none" stroke="#8d7b70" stroke-width="2.5" stroke-linecap="round"/>
+<ellipse cx="59" cy="77" rx="8" ry="4.5" fill="#f3aaa8" opacity=".7"/><ellipse cx="101" cy="77" rx="8" ry="4.5" fill="#f3aaa8" opacity=".7"/>
+<!-- trunk curling right -->
+<path d="M76 71 Q73 87 78 96 Q82 103 91 97 Q96 92 89 88 Q84 86 84 92 Q81 85 85 74" fill="url(#skin)" stroke="#8d7b70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- tilak -->
+<path d="M77 48 Q73 54 77 57 M83 48 Q87 54 83 57" fill="none" stroke="#d9949a" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="80" cy="59" r="2" fill="#d9949a"/>
+<!-- necklace -->
+<path d="M56 101 Q80 124 104 101" fill="none" stroke="#e5bf61" stroke-width="4" stroke-linecap="round"/>
+<g fill="#f3c5d5" stroke="#bda28c" stroke-width="1"><circle cx="61" cy="107" r="3.5"/><circle cx="68" cy="113" r="3.5"/><circle cx="76" cy="117" r="3.5"/><circle cx="84" cy="117" r="3.5"/><circle cx="92" cy="113" r="3.5"/><circle cx="99" cy="107" r="3.5"/></g>
+<circle cx="80" cy="121" r="4.5" fill="#e8a8c0" stroke="#bda28c" stroke-width="1.5"/>
+<!-- sweet in other hand -->
+<path d="M111 92 Q119 81 127 92 L130 100 Q120 105 110 100Z" fill="#f5d87b" stroke="#8d7b70" stroke-width="2"/>
+<path d="M118 90 Q115 84 120 80 Q124 85 122 91" fill="#ffedb2" stroke="#8d7b70" stroke-width="1.5"/>
+</svg>
