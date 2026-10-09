@@ -6,7 +6,7 @@ import Reveal from "@/components/reveal";
 import Petals from "@/components/petals";
 import Nav from "@/components/nav";
 import EnvelopeIntro from "@/components/envelope-intro";
-import { Branch, Diya, Divider, Elephant, Heart, Landscape, Lotus } from "@/components/decor";
+import { Branch, Diya, Divider, BabyElephant, Heart, Landscape, Lotus } from "@/components/decor";
 import { calendarUrl, event, photos } from "@/lib/event";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -106,7 +106,7 @@ export default async function Home() {
             <Divider />
             <div className="scene">
               <Landscape className="scene-bg" />
-              <Elephant className="scene-elephant sway" />
+              <BabyElephant className="scene-elephant" />
               <Lotus className="scene-lotus scene-lotus-l float" />
               <Lotus className="scene-lotus scene-lotus-r float" />
             </div>
@@ -264,7 +264,7 @@ export default async function Home() {
             <Heart className="beat" />
             <p className="serif-body small">With love,</p>
             <p className="hosts">{event.hostsShort}</p>
-            <Elephant className="thanks-elephant sway" />
+            <BabyElephant className="thanks-elephant" />
           </div>
         </Reveal>
       </section>
