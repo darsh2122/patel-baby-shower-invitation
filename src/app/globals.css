@@ -246,7 +246,7 @@ button { cursor: pointer; }
 .env-ribbon-h { top: 50%; left: 0; right: 0; height: 12%; translate: 0 -50%; background: linear-gradient(180deg, #a5b685, #b9c79f 50%, #a5b685); }
 .env-bow { left: 50%; top: 50%; width: 46%; translate: -50% -52%; z-index: 6; filter: drop-shadow(0 6px 6px rgba(74, 91, 57, 0.3)); transition: opacity 0.4s, transform 0.6s var(--ease); animation: bowPulse 2.4s ease-in-out infinite; }
 .env-tag { left: 58%; top: 52%; width: 22%; aspect-ratio: 1; z-index: 7; background: #fffaf2; border: 1.5px solid #c9b274; border-radius: 6px; display: grid; place-items: center; transform-origin: 50% -30%; transform: rotate(8deg); animation: swing 3s ease-in-out infinite; box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.25); transition: opacity 0.4s; }
-.env-tag-elephant { width: 88%; height: auto; position: static; }
+.env-tag-elephant { width: 94%; height: auto; position: static; }
 .intro-opening .env-flap, .intro-leaving .env-flap { transform: rotateX(180deg); z-index: 1; }
 .intro-opening .env-ribbon-v, .intro-opening .env-ribbon-h, .intro-opening .env-tag,
 .intro-leaving .env-ribbon-v, .intro-leaving .env-ribbon-h, .intro-leaving .env-tag { opacity: 0; }
@@ -271,12 +271,9 @@ button { cursor: pointer; }
 .count-num.tick { animation: tick 0.45s var(--ease); }
 .count-label { display: block; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--muted); margin-top: 2px; }
 .count-done { font-size: 1.5rem; color: var(--brown); }
-.scene { position: relative; height: 210px; margin: 18px -10px 4px; border-radius: 16px; overflow: hidden; }
+.scene { position: relative; height: 224px; margin: 18px -10px 4px; border-radius: 16px; overflow: hidden; }
 .scene-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.scene-elephant { position: absolute; left: 50%; bottom: -4px; width: min(58%, 200px); height: auto; translate: -50% 0; }
-.scene-lotus { position: absolute; bottom: 6px; width: 46px; height: auto; }
-.scene-lotus-l { left: 8%; animation-delay: -1s; }
-.scene-lotus-r { right: 8%; animation-delay: -2.5s; }
+.scene-elephant { position: absolute; left: 50%; bottom: 0; width: min(74%, 290px); height: auto; translate: -50% 0; }
 .when-strong { margin: 4px 0 0; font-size: 1.35rem; font-weight: 600; color: var(--brown); }
 .when-light { margin: 0; font-size: 1.1rem; color: var(--muted); }
 
@@ -363,31 +360,54 @@ button { cursor: pointer; }
 
 /* ── Thank you ──────────────────────────────────────────── */
 .thanks-screen { padding-bottom: 40px; }
-.thanks-elephant { width: min(54%, 210px); height: auto; margin: 18px auto -6px; display: block; }
+.thanks-elephant { width: min(76%, 290px); height: auto; margin: 20px auto -4px; display: block; }
 .sheet-thanks .corner { filter: hue-rotate(-6deg) saturate(0.9); }
 .foot { text-align: center; padding: 8px 16px 36px; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 
-/* ── Baby elephant ──────────────────────────────────────── */
+/* ── Baby elephant (side view) ───────────────────────────── */
 .be { overflow: visible; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.be-all { transform-origin: 150px 262px; animation: beBreathe 3.6s ease-in-out infinite; }
-.be-ear-l { transform-origin: 104px 100px; animation: beEarL 3.4s ease-in-out infinite; }
-.be-ear-r { transform-origin: 196px 100px; animation: beEarR 3.4s ease-in-out infinite 0.3s; }
-.be-trunk { transform-origin: 150px 112px; animation: beTrunk 5s ease-in-out infinite; transition: transform 0.5s var(--ease); }
+.be-bob { animation: beBob 1.2s ease-in-out infinite; }
+.be-idle .be-bob { transform-origin: 180px 268px; animation: beBreathe 3.8s ease-in-out infinite; }
+.be-shadow { transform-box: fill-box; transform-origin: center; animation: beShadow 1.2s ease-in-out infinite; }
+.be-idle .be-shadow { animation: none; }
+.be-leg-a { animation: beLeg 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.be-leg-b { animation: beLeg 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite -1.2s; }
+.be-idle .be-leg { animation: none; }
+.be-head { animation: beHead 1.2s ease-in-out infinite; }
+.be-idle .be-head { animation-duration: 3.8s; }
+.be-trunk { animation: beTrunk 3.6s ease-in-out infinite; }
+.be-trunk-wrap { transition: transform 0.6s var(--ease); }
+.be:hover .be-trunk-wrap { transform: rotate(-12deg); }
+.be-ear { animation: beEar 2.4s ease-in-out infinite; }
+.be-tail { animation: beTail 2.4s ease-in-out infinite; }
+.be-tassel { animation: beTassel 1.2s ease-in-out infinite alternate; }
 .be-lid { transform-box: fill-box; transform-origin: 50% 0%; transform: scaleY(0); animation: beBlink 5.5s infinite; }
 .be-heart { opacity: 0; transform-box: fill-box; transform-origin: center; animation: beHeart 5s ease-in-out infinite; }
-.be-heart.h2 { animation-delay: 1.7s; }
-.be-heart.h3 { animation-delay: 3.2s; }
-.be:hover .be-ear-l, .be:active .be-ear-l { animation-duration: 0.45s; }
-.be:hover .be-ear-r, .be:active .be-ear-r { animation-duration: 0.45s; }
-.be:hover .be-trunk, .be:active .be-trunk { animation: none; transform: rotate(-17deg) scaleY(0.94); }
-.be:hover .be-heart, .be:active .be-heart { animation-duration: 1.6s; }
+.be-heart.h2 { animation-delay: 2.5s; }
 .be-still, .be-still * { animation: none !important; }
-@keyframes beBreathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.012, 0.986); } }
-@keyframes beEarL { 0%, 100% { transform: rotate(2deg); } 50% { transform: rotate(-8deg) scaleX(0.96); } }
-@keyframes beEarR { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(8deg) scaleX(0.96); } }
-@keyframes beTrunk { 0%, 100% { transform: rotate(3deg); } 35% { transform: rotate(-6deg); } 70% { transform: rotate(5deg) scaleY(0.98); } }
+.scene-ground { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.tuft { position: absolute; left: 104%; bottom: 10px; width: 30px; opacity: 0; animation: tuftScroll 15s linear infinite; animation-delay: calc(var(--i) * -3.75s); }
+.tuft svg { display: block; width: 100%; height: auto; }
+.tuft:nth-child(2n) { bottom: 22px; width: 22px; }
+.tuft:nth-child(3n) { bottom: 5px; width: 36px; }
+@keyframes beBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes beBreathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.008, 0.99); } }
+@keyframes beShadow { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.95); } }
+@keyframes beLeg {
+  0% { transform: translateY(0) rotate(-13deg); }
+  55% { transform: translateY(0) rotate(13deg); }
+  70% { transform: translateY(-7px) rotate(9deg); }
+  85% { transform: translateY(-8px) rotate(-4deg); }
+  100% { transform: translateY(0) rotate(-13deg); }
+}
+@keyframes beHead { 0%, 100% { transform: rotate(-0.8deg); } 50% { transform: rotate(1.4deg); } }
+@keyframes beTrunk { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-5deg); } 50% { transform: rotate(2deg); } 75% { transform: rotate(-6deg); } }
+@keyframes beEar { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(9deg); } }
+@keyframes beTail { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(14deg); } }
+@keyframes beTassel { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
 @keyframes beBlink { 0%, 93%, 100% { transform: scaleY(0); } 96% { transform: scaleY(1); } }
-@keyframes beHeart { 0% { opacity: 0; transform: translateY(8px) scale(0.5); } 20% { opacity: 0.95; } 70% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-46px) scale(1.15) rotate(10deg); } }
+@keyframes beHeart { 0% { opacity: 0; transform: translateY(8px) scale(0.5); } 20% { opacity: 0.95; } 70% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-40px) scale(1.15) rotate(10deg); } }
+@keyframes tuftScroll { 0% { left: 104%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: -14%; opacity: 0; } }
 
 /* ── Keyframes ──────────────────────────────────────────── */
 @keyframes popIn { from { opacity: 0; transform: translateY(22px) scale(0.97); } to { opacity: 1; transform: none; } }

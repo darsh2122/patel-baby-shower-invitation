@@ -6,7 +6,7 @@ import Reveal from "@/components/reveal";
 import Petals from "@/components/petals";
 import Nav from "@/components/nav";
 import EnvelopeIntro from "@/components/envelope-intro";
-import { Branch, Diya, Divider, BabyElephant, Heart, Landscape, Lotus } from "@/components/decor";
+import { BabyElephant, Branch, Diya, Divider, Heart, Landscape, Lotus, Tuft } from "@/components/decor";
 import { calendarUrl, event, photos } from "@/lib/event";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -106,9 +106,12 @@ export default async function Home() {
             <Divider />
             <div className="scene">
               <Landscape className="scene-bg" />
-              <BabyElephant className="scene-elephant" />
-              <Lotus className="scene-lotus scene-lotus-l float" />
-              <Lotus className="scene-lotus scene-lotus-r float" />
+              <div className="scene-ground" aria-hidden="true">
+                {[0, 1, 2, 3].map((i) => (
+                  <span key={i} className="tuft" style={{ "--i": i } as React.CSSProperties}><Tuft /></span>
+                ))}
+              </div>
+              <BabyElephant className="scene-elephant" mode="walk" />
             </div>
             <h2 className="script script-lg">Baby Shower</h2>
             <p className="when-strong">{event.dateLabel}</p>
@@ -264,7 +267,7 @@ export default async function Home() {
             <Heart className="beat" />
             <p className="serif-body small">With love,</p>
             <p className="hosts">{event.hostsShort}</p>
-            <BabyElephant className="thanks-elephant" />
+            <BabyElephant className="thanks-elephant" mode="idle" />
           </div>
         </Reveal>
       </section>

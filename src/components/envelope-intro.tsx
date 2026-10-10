@@ -56,7 +56,7 @@ export default function EnvelopeIntro() {
         <span className="env-ribbon-v" />
         <span className="env-ribbon-h" />
         <Bow className="env-bow" />
-        <span className="env-tag" aria-hidden="true"><BabyElephant className="env-tag-elephant" still /></span>
+        <span className="env-tag" aria-hidden="true"><BabyElephant className="env-tag-elephant" mode="still" /></span>
       </button>
       <p className="intro-tap">Tap to open</p>
     </div>
