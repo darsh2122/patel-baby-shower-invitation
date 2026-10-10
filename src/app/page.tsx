@@ -74,7 +74,7 @@ export default async function Home() {
         <div className="sheet sheet-arch hero-sheet">
           <Corners />
           <div className="sheet-body">
-            <div className="medallion pop" style={{ "--i": 0 } as React.CSSProperties}><span>ॐ</span></div>
+            <div className="medallion pop" style={{ "--i": 0 } as React.CSSProperties}><img src="/baby-ganesha.svg" alt="Cute baby Ganesha" /></div>
             <p className="serif-lead pop" style={{ "--i": 1 } as React.CSSProperties}>With love and joy,<br />we invite you to our</p>
             <h1 className="script script-xl shimmer pop" style={{ "--i": 2 } as React.CSSProperties}>Baby Shower</h1>
             <p className="serif-body pop" style={{ "--i": 3 } as React.CSSProperties}>As we celebrate the upcoming arrival<br />of our little one</p>
@@ -116,28 +116,6 @@ export default async function Home() {
             <h2 className="script script-lg">Baby Shower</h2>
             <p className="when-strong">{event.dateLabel}</p>
             <p className="when-light">{event.timeLabel}</p>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 4. OUR STORY */}
-      <section id="story" className="screen">
-        <Reveal className="sheet sheet-arch">
-          <Corners />
-          <div className="sheet-body">
-            <SectionTitle>Our Story</SectionTitle>
-            <p className="serif-body">From the day we found out, our hearts have been filled with more love, more dreams and more excitement.</p>
-            <p className="serif-body">This little one has already brought so much joy into our lives, and we can&rsquo;t wait to share this special journey with you.</p>
-            <Reveal effect="zoom" delay={150} className="photo-frame">
-              {photos.story ? (
-                <img src={photos.story} alt="Our story" loading="lazy" />
-              ) : (
-                <div className="photo-ph" role="img" aria-label="Photo coming soon">
-                  <HeartIcon size={54} strokeWidth={1.2} className="beat" />
-                  <small>Our photo goes here</small>
-                </div>
-              )}
-            </Reveal>
           </div>
         </Reveal>
       </section>
@@ -203,33 +181,6 @@ export default async function Home() {
           <div className="sheet-body">
             <SectionTitle sub={<>Kindly reply by <strong>{event.rsvpDeadlineLabel}</strong></>}>RSVP</SectionTitle>
             <RSVPForm />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 8. GALLERY */}
-      <section id="gallery" className="screen">
-        <Reveal className="sheet sheet-arch">
-          <Corners />
-          <div className="sheet-body">
-            <SectionTitle>Our Journey So Far</SectionTitle>
-            <div className="gallery">
-              {photos.gallery.map((p, i) => {
-                const Icon = tileIcons[p.icon];
-                return (
-                  <Reveal key={i} effect="zoom" delay={(i % 2) * 90 + Math.floor(i / 2) * 60} className={`g-tile g-${i % 6}`}>
-                    {p.src ? (
-                      <img src={p.src} alt={p.alt} loading="lazy" />
-                    ) : (
-                      <div className="g-ph" role="img" aria-label={p.alt}>
-                        <Icon size={34} strokeWidth={1.2} />
-                        <small>{p.alt}</small>
-                      </div>
-                    )}
-                  </Reveal>
-                );
-              })}
-            </div>
           </div>
         </Reveal>
       </section>
