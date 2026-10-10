@@ -88,120 +88,148 @@ export function Diya({ className = "" }: P) {
   );
 }
 
-function Ear({ k }: { k: string }) {
-  return (
-    <>
-      <path d="M104 80C74 44 14 56 8 112c-5 48 36 88 84 64 16-26 22-68 12-96Z" fill={`url(#SKIN${k})`} stroke="#8d7c70" strokeWidth="1" />
-      <path d="M98 92C76 66 32 76 28 116c-3 36 26 64 58 48 12-22 18-52 12-72Z" fill={`url(#EARIN${k})`} />
-      <path d="M92 102C72 102 52 114 40 130M92 122C74 126 58 138 51 152M91 142C79 150 68 158 63 166" stroke="#d98c82" strokeWidth="1.3" strokeLinecap="round" opacity=".55" fill="none" />
-      <path d="M22 76C40 58 70 58 92 76" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".22" fill="none" />
-    </>
-  );
-}
+const SKIN = "#e4b98a";
+const FAR = "#cfa273";
 
-function Eye({ x, k, flip = false }: { x: number; k: string; flip?: boolean }) {
-  const d = flip ? 1 : -1; // direction of the outer corner
+function Leg({ x, w, phase, far = false }: { x: number; w: number; phase: "a" | "b"; far?: boolean }) {
+  const r = x + w;
   return (
-    <g>
-      <ellipse cx={x} cy="103" rx="7.6" ry="9.2" fill="#35261f" />
-      <ellipse cx={x} cy="103" rx="7.6" ry="9.2" fill={`url(#EYESHINE${k})`} />
-      <circle cx={x - 2.4} cy="99" r="3" fill="#fff" />
-      <circle cx={x + 2.6} cy="107.6" r="1.4" fill="#fff" opacity=".85" />
-      <path d={`M${x - 9} 94q9 -8 18 0`} stroke="#4a382e" strokeWidth="1.7" strokeLinecap="round" fill="none" />
-      <path d={`M${x + d * 8.5} 95l${d * 5} -3M${x + d * 6} 91.5l${d * 3.5} -5M${x + d * 3} 89.5l${d * 1.5} -5.5`} stroke="#4a382e" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      <ellipse className="be-lid" cx={x} cy="103" rx="8.8" ry="10.4" fill="#c7b7aa" />
+    <g className={`be-leg be-leg-${phase}`} style={{ transformOrigin: `${x + w / 2}px 200px` }}>
+      <path d={`M${x} 198H${r}L${r - 2} 252Q${r - 2} 268 ${r - 11} 268H${x + 11}Q${x + 2} 268 ${x + 2} 252Z`} fill={far ? FAR : SKIN} />
+      <g fill={far ? "#e6cfae" : "#f7e8d2"}>
+        {[0.26, 0.5, 0.74].map((f) => (
+          <ellipse key={f} cx={x + w * f} cy="262.5" rx="4" ry="3.1" />
+        ))}
+      </g>
     </g>
   );
 }
 
-/** A cute front-facing baby elephant with idle animations (breathing, ear flaps, trunk sway, blinking, floating hearts). */
-export function BabyElephant({ className = "", still = false }: { className?: string; still?: boolean }) {
+/**
+ * Side-view baby elephant (faces right), drawn flat and soft so it blends into the pastel scene.
+ * mode: "walk" = walking in place, "idle" = standing and breathing, "still" = no animation.
+ */
+export function BabyElephant({ className = "", mode = "walk" }: { className?: string; mode?: "walk" | "idle" | "still" }) {
   const raw = useId();
   const k = raw.replace(/[^a-zA-Z0-9]/g, "");
-  const u = (n: string) => `url(#${n}${k})`;
+  const drops: [number, number, string][] = [
+    [266, 96, "#cf4a35"], [277, 94, "#e8b84a"], [289, 94, "#cf4a35"], [300, 94, "#e8b84a"], [312, 96, "#cf4a35"],
+  ];
   return (
-    <svg className={`be ${still ? "be-still" : ""} ${className}`} viewBox="0 0 300 280" aria-hidden="true" fill="none">
+    <svg className={`be be-${mode} ${className}`} viewBox="0 0 420 290" aria-hidden="true" fill="none">
       <defs>
-        <radialGradient id={`SKIN${k}`} cx="42%" cy="30%" r="85%">
-          <stop offset="0" stopColor="#e9dfd6" />
-          <stop offset=".55" stopColor="#cbbaad" />
-          <stop offset="1" stopColor="#9c8b7f" />
-        </radialGradient>
-        <linearGradient id={`BODY${k}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#d3c4b8" />
-          <stop offset="1" stopColor="#a39286" />
+        <clipPath id={`bc${k}`}>
+          <ellipse cx="178" cy="176" rx="104" ry="66" />
+        </clipPath>
+        <linearGradient id={`bs${k}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#a8763f" stopOpacity="0" />
+          <stop offset="1" stopColor="#a8763f" stopOpacity=".34" />
         </linearGradient>
-        <radialGradient id={`EARIN${k}`} cx="60%" cy="45%" r="75%">
-          <stop offset="0" stopColor="#f6cfc6" />
-          <stop offset="1" stopColor="#e3a197" />
-        </radialGradient>
-        <linearGradient id={`TRUNK${k}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#a39286" />
-          <stop offset=".45" stopColor="#d9cbc0" />
-          <stop offset="1" stopColor="#9e8d81" />
-        </linearGradient>
-        <radialGradient id={`BLUSH${k}`}>
-          <stop offset="0" stopColor="#f4a79c" stopOpacity=".75" />
-          <stop offset="1" stopColor="#f4a79c" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id={`EYESHINE${k}`} cx="40%" cy="35%" r="70%">
-          <stop offset="0" stopColor="#7a5a48" stopOpacity=".55" />
-          <stop offset="1" stopColor="#35261f" stopOpacity="0" />
+        <radialGradient id={`bl${k}`}>
+          <stop offset="0" stopColor="#f0968a" stopOpacity=".8" />
+          <stop offset="1" stopColor="#f0968a" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      <ellipse cx="150" cy="265" rx="84" ry="9" fill="#5c6e48" opacity=".22" />
+      <ellipse className="be-shadow" cx="180" cy="270" rx="130" ry="9" fill="#5c6e48" opacity=".22" />
 
-      <g className="be-all">
-        {/* legs + body */}
-        <rect x="102" y="222" width="42" height="40" rx="18" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
-        <rect x="156" y="222" width="42" height="40" rx="18" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
-        <ellipse cx="150" cy="206" rx="68" ry="54" fill={u("BODY")} stroke="#8d7c70" strokeWidth="1" />
-        <ellipse cx="150" cy="222" rx="38" ry="26" fill="#fff" opacity=".12" />
-        <g fill="#f2e9df" stroke="#b5a69a" strokeWidth=".8">
-          <ellipse cx="113" cy="254" rx="4.6" ry="5.6" /><ellipse cx="123" cy="256" rx="4.6" ry="5.6" /><ellipse cx="133" cy="254" rx="4.6" ry="5.6" />
-          <ellipse cx="167" cy="254" rx="4.6" ry="5.6" /><ellipse cx="177" cy="256" rx="4.6" ry="5.6" /><ellipse cx="187" cy="254" rx="4.6" ry="5.6" />
+      <g className="be-bob">
+        {/* tail (behind the body) */}
+        <g transform="translate(0 -14)">
+          <g className="be-tail" style={{ transformOrigin: "88px 152px" }}>
+            <path d="M90 152C66 150 55 176 61 199" stroke="#d3a577" strokeWidth="7" strokeLinecap="round" />
+            <path d="M61 193c-9 6-9 19 0 26 9-7 9-20 0-26Z" fill="#7a4a2e" />
+          </g>
         </g>
-        <path d="M108 242q16 7 32 0M160 242q16 7 32 0" stroke="#7d6d62" strokeWidth="1.3" strokeLinecap="round" opacity=".35" />
 
-        {/* ears */}
-        <g className="be-ear-l"><Ear k={k} /></g>
-        <g className="be-ear-r"><g transform="translate(300 0) scale(-1 1)"><Ear k={k} /></g></g>
+        {/* legs: far pair is darker; diagonal pairs move together */}
+        <Leg x={140} w={36} phase="a" far />
+        <Leg x={184} w={36} phase="b" far />
+        <Leg x={104} w={40} phase="b" />
+        <Leg x={216} w={40} phase="a" />
+
+        <g transform="translate(0 -14)">
+        {/* body */}
+        <ellipse cx="178" cy="176" rx="104" ry="66" fill={SKIN} />
+        <g clipPath={`url(#bc${k})`}>
+          <ellipse cx="178" cy="226" rx="104" ry="40" fill={`url(#bs${k})`} />
+          <ellipse cx="168" cy="124" rx="78" ry="12" fill="#fff" opacity=".16" />
+        </g>
+
+        {/* embroidered blanket */}
+        <path d="M120 118Q176 98 232 116L238 186Q178 204 114 188Z" fill="#4f8f51" stroke="#e6b84a" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M133 125Q176 111 221 123L225 176Q178 190 128 178Z" fill="#c8452f" />
+        <path d="M176 126 196 150 176 174 156 150Z" fill="#e9a23b" />
+        <path d="M176 137 188 150 176 163 164 150Z" fill="#4f8f51" />
+        <circle cx="176" cy="150" r="4" fill="#c8452f" />
+        <path d="M146 141 154 150 146 159 138 150ZM206 141 214 150 206 159 198 150Z" fill="#e9a23b" />
+        <g fill="#e6b84a">
+          {[[146, 129], [160, 126], [176, 125], [192, 126], [208, 129], [142, 167], [156, 169], [170, 170], [184, 170], [198, 169], [212, 167]].map(([cx, cy]) => (
+            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2.6" />
+          ))}
+        </g>
+        <g className="be-tassel" style={{ transformOrigin: "178px 190px" }}>
+          <path d="M178 192 187 204 178 216 169 204Z" fill="#4f8f51" stroke="#e6b84a" strokeWidth="2" strokeLinejoin="round" />
+          <circle cx="178" cy="190" r="3.4" fill="#e6b84a" />
+        </g>
 
         {/* head */}
-        <ellipse cx="150" cy="110" rx="60" ry="57" fill={u("SKIN")} stroke="#8d7c70" strokeWidth="1" />
-        <ellipse cx="136" cy="76" rx="30" ry="14" fill="#fff" opacity=".2" />
-        <path d="M126 80q24 -9 48 0M132 90q18 -6 36 0" stroke="#7d6d62" strokeWidth="1.3" strokeLinecap="round" opacity=".28" />
-        <path d="M146 54q-3 -9 -10 -12M150 53q0 -10 3 -15M154 54q4 -9 12 -10" stroke="#8a796d" strokeWidth="2.2" strokeLinecap="round" />
-        <ellipse cx="100" cy="130" rx="13" ry="8" fill={u("BLUSH")} />
-        <ellipse cx="200" cy="130" rx="13" ry="8" fill={u("BLUSH")} />
+        <g className="be-head" style={{ transformOrigin: "246px 150px" }}>
+          <circle cx="288" cy="124" r="54" fill={SKIN} />
 
-        <Eye x={121} k={k} />
-        <Eye x={179} k={k} flip />
+          {/* trunk, raised in a happy curl */}
+          <g className="be-trunk-wrap" style={{ transformOrigin: "326px 142px" }}>
+            <g className="be-trunk" style={{ transformOrigin: "326px 142px" }}>
+              <path d="M314 159C358 178 408 160 405 98C405 82 383 82 383 98C380 134 364 146 330 125Z" fill={SKIN} />
+              <path d="M349 141Q354 151 350 164M366 150Q371 160 367 172M380 130Q392 136 405 128M384 112Q394 117 404 110" stroke="#b98a58" strokeWidth="1.6" strokeLinecap="round" opacity=".55" />
+            </g>
+          </g>
 
-        {/* trunk */}
-        <g className="be-trunk">
-          <path d="M134 112C130 146 128 176 137 200c5 13 23 16 28 2 3-9-4-15-10-11-4 2-6-1-5-7 3-20 10-44 16-72Z" fill={u("TRUNK")} stroke="#8d7c70" strokeWidth="1" />
-          <path d="M131 140q18 7 36 -2M130 158q17 7 32 -1M131 176q14 6 26 -1M135 192q11 6 20 0" stroke="#7d6d62" strokeWidth="1.4" strokeLinecap="round" opacity=".35" />
-          <path d="M143 122C140 150 139 176 145 196" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".2" />
-          <ellipse cx="157" cy="207" rx="4.2" ry="2.4" fill="#6e5d52" opacity=".5" />
-        </g>
+          {/* ear */}
+          <path d="M262 88C236 80 220 108 226 134C232 160 258 170 272 150C284 132 284 100 262 88Z" fill="#a8763f" opacity=".2" transform="translate(3 4)" />
+          <g className="be-ear" style={{ transformOrigin: "268px 92px" }}>
+            <path d="M262 88C236 80 220 108 226 134C232 160 258 170 272 150C284 132 284 100 262 88Z" fill="#d9a972" />
+            <path d="M262 102C246 98 238 116 242 134C246 150 260 154 266 142C272 130 272 112 262 102Z" fill="#f0b4a2" opacity=".78" />
+            <path d="M249 112Q246 130 252 142M258 108Q256 126 259 138" stroke="#d98f80" strokeWidth="1.2" strokeLinecap="round" opacity=".6" />
+          </g>
 
-        {/* little blossom on the head */}
-        <g transform="translate(193 60) rotate(14)">
-          <path d="M-4 6C-18 4-24 14-26 22 -14 22-6 16-4 6Z" fill="#9bb27c" />
-          {[0, 72, 144, 216, 288].map((a) => (
-            <ellipse key={a} cx="0" cy="-8" rx="5.6" ry="8" transform={`rotate(${a})`} fill="#f8bba8" stroke="#eba08a" strokeWidth=".7" />
+          {/* little green cap with forehead drops */}
+          <path d="M250 92C250 58 326 54 328 94Q289 80 250 92Z" fill="#5b9a55" />
+          <path d="M250 92Q289 80 328 94L326 100Q289 88 252 99Z" fill="#3f7a43" />
+          <path d="M262 76C272 66 292 64 304 68" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".25" />
+          <circle cx="288" cy="61" r="5.5" fill="#e8b84a" />
+          <circle cx="286.4" cy="59.2" r="1.6" fill="#fff" opacity=".6" />
+          {drops.map(([x, y, c]) => (
+            <path key={x} d={`M${x - 3} ${y}L${x + 3} ${y}L${x} ${y + 8}Z`} fill={c} />
           ))}
-          <circle r="4" fill="#e9b55c" />
+
+          {/* face */}
+          <ellipse cx="302" cy="136" rx="12" ry="7.5" fill={`url(#bl${k})`} />
+          <ellipse cx="314" cy="116" rx="7" ry="8.4" fill="#3b2a20" />
+          <circle cx="311.8" cy="112.6" r="2.6" fill="#fff" />
+          <circle cx="316" cy="120" r="1.1" fill="#fff" opacity=".85" />
+          <ellipse className="be-lid" cx="314" cy="116" rx="8" ry="9.4" fill={SKIN} />
+          <path d="M322 108l5-3" stroke="#3b2a20" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M306 150Q313 159 324 152" stroke="#7a4a35" strokeWidth="1.8" strokeLinecap="round" />
+        </g>
+
+        <g fill="#f2a3a0">
+          <path className="be-heart h1" d="M392 70c-6-6-10-2-6 3l6 7 6-7c4-5 0-9-6-3Z" />
+          <path className="be-heart h2" d="M410 92c-5-5-8-1-5 3l5 6 5-6c3-4 0-8-5-3Z" />
+        </g>
         </g>
       </g>
+    </svg>
+  );
+}
 
-      <g fill="#f2a3a0">
-        <path className="be-heart h1" d="M236 80c-6-6-10-2-6 3l6 7 6-7c4-5 0-9-6-3Z" />
-        <path className="be-heart h2" d="M262 112c-5-5-8-1-5 3l5 6 5-6c3-4 0-8-5-3Z" />
-        <path className="be-heart h3" d="M44 70c-5-5-8-1-5 3l5 6 5-6c3-4 0-8-5-3Z" />
-      </g>
+/** A tiny tuft of grass with a blossom, used for the drifting ground. */
+export function Tuft({ className = "" }: P) {
+  return (
+    <svg className={className} viewBox="0 0 30 24" aria-hidden="true" fill="none">
+      <path d="M15 24C14 16 9 10 4 7M15 24C15 14 16 8 15 2M15 24C17 16 22 10 27 8" stroke="#7d9566" strokeWidth="2.4" strokeLinecap="round" />
+      <circle cx="15" cy="4" r="3.2" fill="#f3b8a2" />
+      <circle cx="15" cy="4" r="1.2" fill="#e9b55c" />
     </svg>
   );
 }
