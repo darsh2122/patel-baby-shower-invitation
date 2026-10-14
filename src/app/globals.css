@@ -2134,12 +2134,13 @@ button {
 */
 html {
   scroll-padding-top: 0;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
 .screen {
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
+  scroll-snap-stop: always;
   min-height: 100svh;
   min-height: 100dvh;
   display: flex;
