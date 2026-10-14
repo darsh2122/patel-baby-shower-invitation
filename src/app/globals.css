@@ -208,7 +208,7 @@ button {
 }
 
 .sheet-thanks {
-  background: radial-gradient(100% 60% at 50% 0%, #eef2da 0%, transparent 70%), linear-gradient(180deg, #dde4c2, #cfd9b0);
+  background: radial-gradient(120% 60% at 50% 0%, #fff6ec 0%, transparent 70%), linear-gradient(180deg, #fde9d8, #fff3e7 45%, #fde7d5);
   border-radius: 40px;
 }
 
