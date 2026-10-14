@@ -13,6 +13,8 @@ A mobile-friendly Next.js invitation for Priyanka Patel & Darshit Patel's baby s
 
 The page follows a 12-screen design: tap-to-open envelope, welcome, countdown, Our Story, details, map, RSVP, gallery, guest messages, thank-you, plus an admin dashboard. Story and gallery photos are illustrated placeholders until you add real ones: put image files in `public/photos/` and list their paths in `src/lib/event.ts` (`photos`). Only add photos you have permission to publish.
 
+The baby elephant is layered artwork in `public/elephant/` (`base`, `front`, `back`, `trunk`, `full` as transparent WebP files) animated with CSS in `src/components/baby-elephant.tsx`.
+
 ## Requirements
 - Node.js 20.9+ (Node 22 LTS recommended)
 - Git and VS Code

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Bow, Branch, BabyElephant, Diya } from "./decor";
+import { Bow, Branch, Diya } from "./decor";
+import { BabyElephant } from "./baby-elephant";
 
 type Stage = "idle" | "opening" | "leaving" | "gone";
 
