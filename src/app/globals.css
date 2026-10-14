@@ -832,7 +832,7 @@ button {
 .env-ribbon-v { left: 50%; top: 0; bottom: 0; width: 9%; translate: -50% 0; }
 .env-ribbon-h { top: 50%; left: 0; right: 0; height: 12%; translate: 0 -50%; background: linear-gradient(180deg, #a5b685, #b9c79f 50%, #a5b685); }
 .env-bow { left: 50%; top: 50%; width: 46%; translate: -50% -52%; z-index: 6; filter: drop-shadow(0 6px 6px rgba(74, 91, 57, 0.3)); transition: opacity 0.4s, transform 0.6s var(--ease); animation: bowPulse 2.4s ease-in-out infinite; }
-.env-tag { left: 58%; top: 52%; width: 22%; aspect-ratio: 1; z-index: 7; background: #fffaf2; border: 1.5px solid #c9b274; border-radius: 6px; display: grid; place-items: center; transform-origin: 50% -30%; transform: rotate(8deg); animation: swing 3s ease-in-out infinite; box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.25); transition: opacity 0.4s; }
+.env-tag { left: 58%; top: 52%; width: 22%; aspect-ratio: 1; z-index: 7; background: #f9dcc8; border: 1.5px solid #cfc099; border-radius: 6px; display: grid; place-items: center; transform-origin: 50% -30%; transform: rotate(8deg); animation: swing 3s ease-in-out infinite; box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.25); transition: opacity 0.4s; }
 .env-tag-elephant { width: 92%; height: auto; position: static; }
 .intro-opening .env-flap, .intro-leaving .env-flap { transform: rotateX(180deg); z-index: 1; }
 .intro-opening .env-ribbon-v, .intro-opening .env-ribbon-h, .intro-opening .env-tag,
