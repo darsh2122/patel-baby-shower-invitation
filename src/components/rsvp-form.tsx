@@ -100,14 +100,6 @@ export default function RSVPForm() {
             )}
             <small>Please send one reply per household and include everyone coming.</small>
           </div>
-          <div className="field">
-            <label htmlFor="diet">Dietary preference</label>
-            <select id="diet" value={diet} onChange={(e) => setDiet(e.target.value)} tabIndex={attending === "yes" ? 0 : -1}>
-              <option value="" disabled>Select an option</option>
-              {dietary.map((d) => <option key={d}>{d}</option>)}
-            </select>
-            {diet === "Other" && <input name="dietOther" maxLength={200} placeholder="Tell us what to plan for" tabIndex={attending === "yes" ? 0 : -1} />}
-          </div>
         </div>
       </div>
 
