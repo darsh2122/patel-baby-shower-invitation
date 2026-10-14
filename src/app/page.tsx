@@ -6,7 +6,8 @@ import Reveal from "@/components/reveal";
 import Petals from "@/components/petals";
 import Nav from "@/components/nav";
 import EnvelopeIntro from "@/components/envelope-intro";
-import { BabyElephant, Branch, Diya, Divider, Heart, Landscape, Lotus, Tuft } from "@/components/decor";
+import { Branch, Diya, Divider, Heart, Landscape, Lotus, Tuft } from "@/components/decor";
+import { BabyElephant } from "@/components/baby-elephant";
 import { calendarUrl, event, photos } from "@/lib/event";
 import { createAdminClient } from "@/lib/supabase/admin";
 
