@@ -2600,3 +2600,233 @@ button {
     background: none;
   }
 }
+
+/* ── Mobile-first full-screen invitation flow ─────────────
+   Sections align naturally during scrolling, but long forms and
+   accessibility zoom can still flow normally instead of clipping.
+*/
+html {
+  scroll-padding-top: 0;
+  scroll-snap-type: y proximity;
+}
+
+.screen {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.screen > .sheet,
+.screen > .reveal,
+.screen > .sheet > .reveal {
+  width: 100%;
+}
+
+.hero {
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-top: 76px;
+  padding-bottom: 56px;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+    background-attachment: scroll;
+  }
+
+  .screen {
+    padding: 18px 12px;
+  }
+
+  .hero {
+    padding: 70px 12px 48px;
+  }
+
+  .sheet {
+    border-radius: 22px;
+  }
+
+  .sheet-arch {
+    border-radius: 50% 50% 22px 22px / 76px 76px 22px 22px;
+  }
+
+  .sheet-arch::before {
+    border-radius: 50% 50% 16px 16px / 70px 70px 16px 16px;
+  }
+
+  .sheet-body,
+  .hero-sheet .sheet-body {
+    padding: 46px 25px 48px;
+  }
+
+  .hero-sheet .sheet-body {
+    padding-top: 40px;
+    padding-bottom: 36px;
+  }
+
+  .medallion {
+    width: 82px;
+    height: 82px;
+    margin-bottom: 8px;
+  }
+
+  .script-xl {
+    font-size: clamp(2.65rem, 11.5vw, 3.6rem);
+  }
+
+  .script-lg {
+    font-size: clamp(2.15rem, 9vw, 2.8rem);
+  }
+
+  .serif-lead {
+    font-size: 1.08rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .serif-body {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 0.45rem auto;
+  }
+
+  .serif-body.small {
+    font-size: 0.9rem;
+  }
+
+  .hosted {
+    font-size: 0.72rem;
+    margin-top: 0.6rem;
+  }
+
+  .hosts {
+    font-size: 1.25rem;
+  }
+
+  .beat {
+    margin: 8px auto 3px;
+  }
+
+  .hero-when {
+    margin-top: 10px;
+    gap: 3px;
+    font-size: 0.76rem;
+  }
+
+  .hero-actions {
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  .hero-actions .btn {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+
+  .hero-lotus {
+    width: 48px;
+    margin-top: 10px;
+  }
+
+  .scroll-cue {
+    bottom: 8px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .sec-title {
+    margin-bottom: 14px;
+  }
+
+  .sec-lotus {
+    width: 40px;
+  }
+
+  .sec-title h2 {
+    font-size: clamp(1.65rem, 7vw, 2rem);
+  }
+
+  .sec-sub {
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+
+  .corner-tl,
+  .corner-tr {
+    top: 30px;
+  }
+
+  .corner-bl,
+  .corner-br {
+    width: 48px;
+  }
+
+  .map-frame {
+    max-height: 30svh;
+  }
+
+  .stack {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+  }
+
+  .thanks-screen {
+    padding-bottom: 18px;
+  }
+
+  .thanks-elephant {
+    width: min(42%, 150px);
+    margin-top: 8px;
+  }
+
+  .foot {
+    padding-bottom: 18px;
+  }
+}
+
+/* Short phone screens (including landscape): use tighter spacing, not clipping. */
+@media (max-height: 740px) and (max-width: 900px) {
+  .screen {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .hero {
+    padding-top: 66px;
+    padding-bottom: 42px;
+  }
+
+  .sheet-body,
+  .hero-sheet .sheet-body {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .medallion {
+    width: 68px;
+    height: 68px;
+  }
+
+  .hero-lotus {
+    display: none;
+  }
+
+  .sec-title {
+    margin-bottom: 10px;
+  }
+}
+
+/* Motion preference wins over scroll snapping. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+  }
+}
