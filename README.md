@@ -77,3 +77,5 @@ supabase/migrations/                SQL schema, rate limiter, privileges
 - Optional: set `INVITED_HOUSEHOLDS` (a number) to show Invited and Awaiting-reply cards on the admin dashboard.
 - Guest messages are approved or deleted from the admin dashboard (no need to use the Supabase table editor).
 - Hosting, Supabase, and email-provider quotas/policies can change. Verify current plan terms before public launch; free tiers are not a guarantee of unlimited capacity.
+
+- 
