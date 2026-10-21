@@ -1,6 +1,6 @@
 # Patel Baby Shower Invitation
 
-A mobile-friendly Next.js invitation for Priyanka Patel & Darshit Patel's baby shower on **Sunday, December 13, 2026, 9:00 AM–1:00 PM Eastern**. Built with Next.js App Router, TypeScript, Supabase, and plain CSS.
+A mobile-friendly Next.js invitation for Priyanka Patel & Darshit Patel's baby shower on **Sunday, December 13, 2026, 9:30 AM–1:00 PM Eastern**. Built with Next.js App Router, TypeScript, Supabase, and plain CSS.
 
 ## Included
 - Invitation page, countdown, venue directions, Google Calendar and downloadable `.ics` invite
