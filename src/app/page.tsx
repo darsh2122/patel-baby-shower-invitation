@@ -88,7 +88,6 @@ export default async function Home() {
               <span><Clock size={14} /> {event.timeLabel}</span>
             </div>
             <div className="hero-actions pop" style={{ "--i": 8 } as React.CSSProperties}>
-              <a className="btn btn-primary" href="#rsvp">RSVP now</a>
               <a className="btn btn-ghost" href="#details">See details</a>
             </div>
             <Lotus className="hero-lotus pop float" />
@@ -119,6 +118,7 @@ export default async function Home() {
             <p className="when-light">{event.timeLabel}</p>
           </div>
         </Reveal>
+        <a className="scroll-cue" href="#details" aria-label="Scroll down"><ChevronDown size={22} /></a>
       </section>
 
       {/* 5. EVENT DETAILS */}
@@ -154,6 +154,7 @@ export default async function Home() {
             <Diya className="sheet-diya" />
           </div>
         </Reveal>
+        <a className="scroll-cue" href="#location" aria-label="Scroll down"><ChevronDown size={22} /></a>
       </section>
 
       {/* 6. LOCATION */}
@@ -173,20 +174,10 @@ export default async function Home() {
             </div>
           </div>
         </Reveal>
+        <a className="scroll-cue" href="#wishes" aria-label="Scroll down"><ChevronDown size={22} /></a>
       </section>
 
-      {/* 7. RSVP */}
-      <section id="rsvp" className="screen">
-        <Reveal className="sheet sheet-arch">
-          <Corners />
-          <div className="sheet-body">
-            <SectionTitle sub={<>Kindly reply by <strong>{event.rsvpDeadlineLabel}</strong></>}>RSVP</SectionTitle>
-            <RSVPForm />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 9. GUEST MESSAGES */}
+      {/* 7. GUEST MESSAGES */}
       <section id="wishes" className="screen">
         <Reveal className="sheet sheet-arch">
           <Corners />
@@ -206,9 +197,24 @@ export default async function Home() {
             )}
           </div>
         </Reveal>
+        <a className="scroll-cue" href="#rsvp" aria-label="Scroll down"><ChevronDown size={22} /></a>
       </section>
 
-      {/* 12. THANK YOU */}
+      {/* 8. RSVP */}
+      <section id="rsvp" className="screen">
+        <Reveal className="sheet sheet-arch">
+          <Corners />
+          <div className="sheet-body">
+            <SectionTitle sub={<>Kindly reply by <strong>{event.rsvpDeadlineLabel}</strong></>}>RSVP</SectionTitle>
+            <RSVPForm />
+          </div>
+        </Reveal>
+        <a className="scroll-cue" href="#thanks" aria-label="Scroll down"><ChevronDown size={22} /></a>
+      </section>
+
+
+
+      {/* 9. THANK YOU */}
       <section id="thanks" className="screen thanks-screen">
         <Reveal className="sheet sheet-thanks">
           <Corners />
